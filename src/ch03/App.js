@@ -4,10 +4,10 @@ function App() {
     const [ num, setNum ] = useState(0);
     let num2 = 0; // 재렌더링 되면 다시 0으로 초기화
 
-    const [ a, b ] = [ 10, 20 ];
-    const [ c, d ] = [ 10, 20 ];
+    // const [ a, b ] = [ 10, 20 ];
+    // const [ c, d ] = [ 10, 20 ];
 
-    a = 100; // 을 한다고 배열의 값 10이 변하지는 않는다.
+    // a = 100; // 을 한다고 배열의 값 10이 변하지는 않는다.
 
     const handleClick = (e) => {
         const value = parseInt(e.target.value);

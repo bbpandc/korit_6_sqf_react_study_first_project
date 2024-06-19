@@ -10,9 +10,9 @@
 
 // ./: 현재위치(src)
 import "./App.css";
-import Box from "./ch01/components/Box";
-import CustomInput from "./ch01/components/CustomInput";
-import Hello from "./ch01/components/Hello";
+import Box from "./components/Box";
+import CustomInput from "./components/CustomInput";
+import Hello from "./components/Hello";
 
 function App() {
   const name = "김해민";
