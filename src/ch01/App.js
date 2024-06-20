@@ -8,7 +8,7 @@
     5. 속성, 이벤트를 카멜표기법으로 작성한다. (ex. className, onClick 등)
 */
 
-// ./: 현재위치(src)
+// ./: 현재위치(ch01)
 import "./App.css";
 import Box from "./components/Box";
 import CustomInput from "./components/CustomInput";
