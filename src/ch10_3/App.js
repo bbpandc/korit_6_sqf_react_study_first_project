@@ -1,7 +1,15 @@
 import { useRef, useState } from "react";
 import "./App.css"
+import Swal from "sweetalert2";
 
 function App() {
+    const test = {
+        a: "aaa",
+        b: "bbb"
+    }
+    console.log(test.a); // aaa
+    console.log(test["a"]); // aaa
+
     const emptyUser = {
         username: "",
         password: "",
@@ -44,6 +52,53 @@ function App() {
             }
         })
     }
+
+    const handleEditClick = (key, index) => {
+        Swal.fire({
+            title: `${key} edit`,
+            input: "text",
+            // 배열[인덱스번호]: 그 인덱스번호 자리의 밸류 가져오기, 객체[키값]: 그 키값의 밸류 가져오기
+            inputValue: userList[index][key],
+            showCancelButton: true,
+            cancelButtonText: "취소",
+            confirmButtonText: "확인"
+        }).then(result => {
+            if(result.isConfirmed) {
+                // console.log(result); // 스프레드는 리턴값에 적용
+                setUserList(userList => [ ...userList.map((user, i) => {
+                    if(i === index) {
+                        return {
+                            ...user,
+                            [key]: result.value
+                        }
+                    }
+                    return user;
+                }) ]);
+            }
+        });
+    }
+
+    const handleDeleteClick = (e) => {
+        Swal.fire({
+            title: "사용자 삭제",
+            text: "해당 사용자를 삭제하시겠습니까?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "삭제",
+            confirmButtonColor: "red",
+            cancelButtonText: "취소"
+        }).then(result => {
+            if(result.isConfirmed) {
+                                        // 스프레드는 리턴값에 적용
+                setUserList(userList => [ ...userList.filter((user, index) => index !== parseInt(e.target.value)) ]);
+            }
+        });
+
+        // react 에서는 confirm 등을 쓸 때 window.~
+        // if(window.confirm("해당 사용자를 삭제하시겠습니까?")) {
+        //     setUserList(userList => [ ...userList.filter((user, index) => index !== parseInt(e.target.value)) ])
+        // }
+    }
     
     return <>
         {/* 
@@ -75,7 +130,8 @@ function App() {
                     <th>username</th>
                     <th>password</th>
                     <th>name</th>
-                    <th>삭제</th>
+                    <th>edit</th>
+                    <th>delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,11 +139,17 @@ function App() {
                     userList.map(({ username, password, name }, index) => {
                         return (
                             <tr key={index}>
+                                {/* td는 name, value가 존재하지x */}
                                 <td>{index + 1}</td>
-                                <td>{username}</td>
-                                <td>{password}</td>
-                                <td>{name}</td>
-                                <button>삭제</button>
+                                <td  onClick={() => handleEditClick("username", index)}>{username}</td>
+                                <td  onClick={() => handleEditClick("password", index)}>{password}</td>
+                                <td  onClick={() => handleEditClick("name", index)}>{name}</td>
+                                <td>
+                                    <button value={index}>edit</button>
+                                </td>
+                                <td>
+                                    <button onClick={handleDeleteClick} value={index}>delete</button>
+                                </td>
                             </tr>
                         );
                     })
