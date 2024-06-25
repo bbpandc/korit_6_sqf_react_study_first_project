@@ -24,6 +24,7 @@ html, body {
     cursor: pointer;
     overflow: hidden;
     & > img {
+        /* 한 쪽 길이만 잡기 */
         width: 100%;
     }
 }
