@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./style.css"
 
-function DataTableBody({ mode, setMode, products, setProducts, isDeleting, setDeleting }) {
+function DataTableBody({ mode, setMode, products, setProducts, isDeleting, setDeleting, setEditProductId }) {
     const [ viewProducts, setViewProducts ] = useState([]);
     const [ checkedAll, setCheckedAll ] = useState(false);
 
@@ -35,6 +35,14 @@ function DataTableBody({ mode, setMode, products, setProducts, isDeleting, setDe
             setDeleting(false);
         }
     }, [isDeleting]);
+
+    useEffect(() => {
+        if(mode === 2) {
+            const [ selectedProduct ] = viewProducts.filter(product => product.isChecked);
+
+            setEditProductId(!selectedProduct ? 0 : selectedProduct.id);
+        }
+    }, [viewProducts]);
 
     const resetViewProducts = () => {
         // 리턴값을 ()로 묶으면 값

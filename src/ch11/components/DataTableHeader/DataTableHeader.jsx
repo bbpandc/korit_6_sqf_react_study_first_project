@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style.css"
 import Swal from "sweetalert2";
 
-function DataTableHeader({ mode, setMode, setProducts, setDeleting }) {
+function DataTableHeader({ mode, setMode, products, setProducts, setDeleting, editProductId }) {
     const emptyProduct = {
         id: "",
         productName: "",
@@ -18,6 +18,11 @@ function DataTableHeader({ mode, setMode, setProducts, setDeleting }) {
     };
 
     const [ inputData, setInputData ] = useState({ ...emptyProduct });
+
+    useEffect(() => {
+        const [ product ] = products.filter(product => product.id === editProductId);
+        setInputData(!product ? { ...emptyProduct } : { ...product });
+    }, [editProductId]);
 
     const handleInputChange = (e) => {
         setInputData(inputData => ({
@@ -66,7 +71,28 @@ function DataTableHeader({ mode, setMode, setProducts, setDeleting }) {
             resetMode();
         }
         if(mode === 2) {
-            alert("상품수정");
+            Swal.fire({
+                title: "상품 정보 수정",
+                showCancelButton: true,
+                confirmButtonText: "확인",
+                cancelButtonText: "취소"
+            }).then(result => {
+                if(result.isConfirmed) {
+                    setProducts(products => [
+                        ...products.map(product => {
+                            if(product.id === editProductId) {
+                                const { id, ...rest } = inputData;
+                                return {
+                                    ...product,
+                                    ...rest
+                                }
+                            }
+                            return product;
+                        })
+                    ]);
+                    resetMode();
+                }
+            });
         }
         if(mode === 3) {
             Swal.fire({

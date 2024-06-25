@@ -8,6 +8,7 @@ function DataTable() {
     const [ mode, setMode ] = useState(0); // 0 = 조회, 1 = 추가, 2 = 수정, 3 = 삭제
     const [ products, setProducts ] = useState([ ...SAMPLE_PRODUCTS ]);
     const [ isDeleting, setDeleting ] = useState(false);
+    const [ editProductId, setEditProductId ] = useState(0);
 
     // 페이지가 최초에 한 번 열렸을 때 한 번만 실행
     useEffect(() => {
@@ -21,8 +22,23 @@ function DataTable() {
 
     return ( 
         <div className="table-main-container">
-            <DataTableHeader mode={mode} setMode={setMode} setProducts={setProducts} setDeleting={setDeleting}/>
-            <DataTableBody mode={mode} setMode={setMode} products={products} setProducts={setProducts} isDeleting={isDeleting} setDeleting={setDeleting}/>
+            <DataTableHeader 
+                mode={mode} 
+                setMode={setMode} 
+                products={products}
+                setProducts={setProducts} 
+                setDeleting={setDeleting}
+                editProductId={editProductId}
+            />
+            <DataTableBody 
+                mode={mode} 
+                setMode={setMode} 
+                products={products} 
+                setProducts={setProducts} 
+                isDeleting={isDeleting} 
+                setDeleting={setDeleting}
+                setEditProductId={setEditProductId}
+            />
         </div>
      );
 }
