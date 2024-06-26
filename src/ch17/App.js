@@ -7,7 +7,7 @@ function App() {
             <div css={s.container1(400)}>
                 <div css={s.container2}>
                     <div css={s.container3}>
-                        <button></button>
+                        <button css={s.button}></button>
                     </div>
                 </div>
             </div>

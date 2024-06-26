@@ -43,6 +43,6 @@ export const button = css`
     box-sizing: border-box;
     border: 1px solid #dbdbdb;
     width: 100px;
-    height: 200px
+    height: 100px;
 `;
 
