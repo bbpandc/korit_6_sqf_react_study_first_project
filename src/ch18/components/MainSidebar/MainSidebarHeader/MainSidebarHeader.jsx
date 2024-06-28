@@ -2,12 +2,15 @@
 import { FaBars, FaBook } from "react-icons/fa";
 import MainContainer from "../../MainContainer/MainContainer";
 import * as s from "./style";
+import { useRecoilState } from "recoil";
+import { mainSidebarShowAtom } from "../../../atoms/mainSidebarShowAtom";
 
-function MainSidebarHeader({ setIsMainSidebarShow }) {
+function MainSidebarHeader() {
+    const [ mainSidebarShow, setMainSidebarShow ] = useRecoilState(mainSidebarShowAtom);
 
     // 열린 사이드바 닫는 버튼
     const handleMainMenuToggleClick = () => {
-        setIsMainSidebarShow(false);
+        setMainSidebarShow(false);
     }
 
     return (
